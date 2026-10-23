@@ -1,0 +1,61 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "domain": { "type": "string", "title": "Domain" },
+      "audited_at": { "type": "string", "title": "Audited At (ISO UTC)" },
+      "pricing_page_url": { "type": "string", "title": "Pricing Page URL" },
+      "sales_motion": { "type": "string", "title": "GTM / Sales Motion" },
+      "pricing_model": { "type": "string", "title": "Pricing Model" },
+      "has_free_tier": { "type": "boolean", "title": "Has Free Tier" },
+      "has_free_trial": { "type": "boolean", "title": "Has Free Trial" },
+      "has_enterprise_tier": { "type": "boolean", "title": "Has Enterprise Tier" },
+      "lowest_paid_price_usd": { "type": "number", "nullable": true, "title": "Lowest Paid Price ($ USD)" },
+      "price_points_detected": { "type": "array", "items": { "type": "string" }, "title": "Detected Price Points" },
+      "price_points_csv": { "type": "string", "title": "Detected Price Points (CSV)" },
+      "sso_saml_mentioned": { "type": "boolean", "title": "SSO / SAML Mentioned" },
+      "sso_tax_gated": { "type": "boolean", "title": "Enterprise SSO-Tax Gated" },
+      "billing_stack": { "type": "array", "items": { "type": "string" }, "title": "Billing / Checkout Stack" },
+      "billing_stack_csv": { "type": "string", "title": "Billing Stack (CSV)" },
+      "gtm_summary": { "type": "string", "title": "GTM & Packaging Summary" }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "SaaS Pricing, PLG & SSO-Tax Overview",
+      "transformation": {
+        "fields": [
+          "domain",
+          "sales_motion",
+          "pricing_model",
+          "lowest_paid_price_usd",
+          "has_free_tier",
+          "has_free_trial",
+          "sso_tax_gated",
+          "price_points_csv",
+          "billing_stack_csv",
+          "pricing_page_url",
+          "gtm_summary"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "domain": { "label": "Domain", "format": "text" },
+          "sales_motion": { "label": "GTM Motion", "format": "text" },
+          "pricing_model": { "label": "Pricing Model", "format": "text" },
+          "lowest_paid_price_usd": { "label": "Starting Price ($)", "format": "number" },
+          "has_free_tier": { "label": "Free Tier", "format": "boolean" },
+          "has_free_trial": { "label": "Free Trial", "format": "boolean" },
+          "sso_tax_gated": { "label": "SSO Tax Gated", "format": "boolean" },
+          "price_points_csv": { "label": "Price Points", "format": "text" },
+          "billing_stack_csv": { "label": "Billing Stack", "format": "text" },
+          "pricing_page_url": { "label": "Pricing URL", "format": "link" },
+          "gtm_summary": { "label": "GTM & Packaging Summary", "format": "text" }
+        }
+      }
+    }
+  }
+}

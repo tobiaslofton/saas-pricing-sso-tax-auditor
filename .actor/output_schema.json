@@ -1,0 +1,14 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "B2B SaaS Pricing & GTM Motion Audit Output",
+  "description": "Structured pricing model, PLG vs Enterprise Sales motion, entry price, billing stack, and SSO/SAML gating intelligence per SaaS domain.",
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string",
+      "title": "SaaS Pricing & GTM Audit Dataset",
+      "description": "Dataset containing all audited SaaS domains and their extracted pricing/packaging intelligence.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    }
+  }
+}

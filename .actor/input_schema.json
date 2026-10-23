@@ -1,0 +1,39 @@
+{
+  "title": "B2B SaaS Pricing & SSO-Tax Auditor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "domains": {
+      "title": "Target SaaS Domains or URLs",
+      "type": "array",
+      "description": "List of SaaS company domains to audit (e.g., ['linear.app', 'notion.so', 'figma.com']).",
+      "editor": "stringList",
+      "default": [
+        "linear.app",
+        "supabase.com",
+        "calendly.com"
+      ],
+      "prefill": [
+        "linear.app",
+        "supabase.com",
+        "calendly.com"
+      ]
+    },
+    "gemini_api_key": {
+      "title": "Gemini API Key (Optional - BYOK)",
+      "type": "string",
+      "description": "Optional Google Gemini API key for AI-enhanced pricing tier & sales-motion synthesis. Deterministic extraction runs in full without a key.",
+      "editor": "textfield",
+      "isSecret": true
+    },
+    "max_concurrency": {
+      "title": "Max Concurrent Audits",
+      "type": "integer",
+      "description": "Number of domains to audit concurrently.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 20
+    }
+  },
+  "required": ["domains"]
+}
