@@ -233,17 +233,23 @@ async def handle_request(req: dict[str, Any]) -> dict[str, Any] | None:
             "id": req_id,
             "result": {
                 "protocolVersion": "2024-11-05",
-                "capabilities": {"tools": {}},
+                "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
                 "serverInfo": {
                     "name": "saas-pricing-sso-tax-auditor",
-                    "version": "0.1.3",
+                    "version": "0.1.4",
                 },
             },
         }
     if method == "notifications/initialized":
         return None
+    if method == "ping":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {}}
     if method == "tools/list":
         return {"jsonrpc": "2.0", "id": req_id, "result": {"tools": TOOLS}}
+    if method == "resources/list":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {"resources": []}}
+    if method == "prompts/list":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {"prompts": []}}
     if method == "tools/call":
         params = req.get("params") or {}
         name = params.get("name")
@@ -289,15 +295,11 @@ async def handle_request(req: dict[str, Any]) -> dict[str, Any] | None:
 
 async def stdio_loop() -> None:
     loop = asyncio.get_running_loop()
-    reader = asyncio.StreamReader()
-    protocol = asyncio.StreamReaderProtocol(reader)
-    await loop.connect_read_pipe(lambda: protocol, sys.stdin)
-
     while True:
-        line = await reader.readline()
+        line = await loop.run_in_executor(None, sys.stdin.readline)
         if not line:
             break
-        raw = line.decode("utf-8", errors="replace").strip()
+        raw = line.strip()
         if not raw:
             continue
         try:
